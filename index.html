@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sentress Realm Games Access</title>
+  <style>
+    body {
+      background-color: #0d0d1f;
+      color: #e0d5ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: radial-gradient(circle at top left, #4b0082, #1a0033);
+    }
+    #status {
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div id="status">🔐 Authenticating with Sentress Realm...</div>
+
+  <script src="https://unpkg.com/@mysten/wallet-kit/dist/browser/wallet-kit.umd.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const { createWalletKit } = window.walletKit;
+        const { connect } = createWalletKit({ providers: ['zklogin'] });
+
+        await connect('zklogin');
+
+        document.getElementById('status').textContent = '✅ Access granted. Redirecting to Games...';
+        window.location.href = 'https://www.intjscorptechnologies.xyz/h/games';
+      } catch (error) {
+        console.error('Login failed:', error);
+        document.getElementById('status').textContent = '❌ Login failed. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
